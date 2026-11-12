@@ -1,0 +1,8 @@
+{
+  "name": " Diamond Rewards",
+  "description": "A Task \u0026 Earn rewards application with daily bonuses, offers, and a redemption system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

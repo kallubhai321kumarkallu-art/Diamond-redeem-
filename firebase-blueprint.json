@@ -1,0 +1,29 @@
+{
+  "collections": {
+    "users": {
+      "path": "users/{userId}",
+      "fields": {
+        "email": "string",
+        "diamondBalance": "number",
+        "coinBalance": "number"
+      }
+    },
+    "offers": {
+      "path": "offers/{offerId}",
+      "fields": {
+        "title": "string",
+        "description": "string",
+        "rewardAmount": "number"
+      }
+    },
+    "submissions": {
+      "path": "submissions/{submissionId}",
+      "fields": {
+        "userId": "string",
+        "offerId": "string",
+        "screenshotUrl": "string",
+        "status": "string"
+      }
+    }
+  }
+}

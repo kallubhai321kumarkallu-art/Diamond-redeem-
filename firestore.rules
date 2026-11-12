@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper to validate User ownership
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Helper for schema validation
+    function isValidUser(data) {
+      return data.email is string && data.diamondBalance is number && data.coinBalance is number;
+    }
+    
+    function isValidOffer(data) {
+      return data.title is string && data.description is string && data.rewardAmount is number;
+    }
+
+    function isValidSubmission(data) {
+      return data.userId is string && data.offerId is string && data.screenshotUrl is string && data.status is string;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) && isValidUser(request.resource.data);
+    }
+    
+    match /offers/{offerId} {
+      allow read: if request.auth != null;
+      allow write: if false; 
+    }
+    
+    match /submissions/{submissionId} {
+      allow read: if isOwner(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId) && isValidSubmission(request.resource.data);
+      allow update, delete: if false; 
+    }
+  }
+}
